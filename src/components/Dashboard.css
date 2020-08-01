@@ -1,0 +1,9 @@
+.weight-block form {
+  width: 100%;
+}
+
+.weight-block {
+  width: 500px;
+  display: inline-block;
+  text-align: left;
+}

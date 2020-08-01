@@ -1,0 +1,46 @@
+{
+  "name": "my-measures",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "chart.js": "^2.9.3",
+    "cra-template": "1.0.3",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.2.2",
+    "react-chartjs-2": "^2.9.0",
+    "react-data-table-component": "^6.9.7",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "styled-components": "^5.1.1",
+    "ttab": "^0.6.1"
+  },
+  "scripts": {
+    "start": "./node_modules/npm-run-all/bin/npm-run-all/index.js tab:start:*",
+    "watch": "npm-watch",
+    "tab:start:client": "react-scripts start",
+    "tab:start:mongo": "ttab -t 'launch mongo' mongod --dbpath=db",
+    "tab:start:auth-serv": "ttab -t 'launch mongo' server/node_modules/nodemon/bin/nodemon.js ./server/server.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cra-build-watch": "^3.2.0",
+    "npm-watch": "^0.6.0"
+  }
+}
