@@ -5,7 +5,6 @@ import {Line} from 'react-chartjs-2';
 class BodyChart extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
 

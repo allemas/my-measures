@@ -4,7 +4,7 @@ import {Line} from 'react-chartjs-2';
 import {Form, Row, Col, Container} from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 
-import '../all.css';
+import WeightChart from "./WeightChart";
 
 
 class Weight extends React.Component {
@@ -13,17 +13,7 @@ class Weight extends React.Component {
     super(props);
 
     this.state = {
-      items: [
-        {weight: 85, feeling: "Ca va bien", date: Date.now()},
-        {weight: 86, feeling: "Ca va bien", date: Date.now()},
-        {weight: 85.5, feeling: "Ca va bien", date: Date.now()},
-        {weight: 84.5, feeling: "Ca va bien", date: Date.now()},
-        {
-          weight: 82.5,
-          feeling: "Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien ",
-          date: Date.now()
-        },
-      ], form: {}
+      form: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,27 +35,15 @@ class Weight extends React.Component {
   handleSubmit(event) {
     const {weight, feeling} = this.state.form;
 
-    this.setState(prevState => ({
-      ...prevState,
-      items: this.state.items.concat({
-        weight: weight.replace(",", "."), feeling: feeling, date: Date.now()
-      })
-    }));
+    this.props.addWeight({
+      weight: weight.replace(",", "."),
+      feeling: feeling
+    });
 
     event.preventDefault();
   }
 
   render() {
-
-
-    const isMobile = window.innerWidth < 480;
-    const showItems = isMobile ? 1 : 3;
-
-    console.log(window.innerWidth);
-    console.log(isMobile);
-
-    const data2 = [{id: 1, title: 'Conan the Barbarian', year: '1982'}];
-
     const columns = [
       {
         name: 'Date',
@@ -89,72 +67,15 @@ class Weight extends React.Component {
       },
     ];
 
-
-    const data = {
-      labels: this.state.items.map((val) => new Date(val.date * 1000).toDateString()),
-      datasets: [
-        {
-          label: 'Mon poids',
-          fill: true,
-          yAxes: [
-            {
-              // stacked: true,
-              gridLines: {
-                display: false,
-                drawBorder: false
-              },
-              ticks: {
-                display: false
-              }
-            }
-          ],
-
-          data: this.state.items.map((val) => val.weight),
-        }
-      ]
-    };
-
     const
       ExpanableComponent = ({data}) => <div className={"doBktq"}>{data.feeling}</div>;
 
-    const options = {
-      title: {
-        display: true,
-        text: "Chart Title"
-      },
-      backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
-      layout: {
-        padding: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0
-        }
-      },
-      scales: {
-
-        yAxes: [
-          {
-            ticks: {
-              suggestedMin: Math.min.apply(Math, this.state.items.map((val) => val.weight)) - 15,
-              suggestedMax: Math.max.apply(Math, this.state.items.map((val) => val.weight)) + 5,
-            }
-          }
-        ]
-      }
-    };
-
-
     return (
-
       <Container fluid>
         <Row>
           <Col>
             <div className="caneva-weight">
-              <Line data={data} height={100}
-                    width={null} options={options}
-              />
+              <WeightChart measures={this.props.weight}/>
             </div>
           </Col>
         </Row>
@@ -167,7 +88,7 @@ class Weight extends React.Component {
               responsive={true}
               expandableRows={'sm'}
               expandableRowsComponent={<ExpanableComponent/>}
-              data={this.state.items}
+              data={this.props.weight}
               expandableRowsHideExpander='sm'
               pagination={true}
             />
@@ -193,8 +114,7 @@ class Weight extends React.Component {
           </Col>
         </Row>
       </Container>
-    )
-      ;
+    );
   }
 }
 

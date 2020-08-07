@@ -3,7 +3,7 @@ import {Table, Accordion, Card, Button} from 'react-bootstrap';
 import {Line} from 'react-chartjs-2';
 import {Form, Row, Col, Container} from 'react-bootstrap';
 
-import "../all.css"
+import "../../styles/main.css"
 
 class Body extends React.Component {
 

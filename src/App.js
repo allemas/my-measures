@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Dashboard from "./components/Dashboard";
-import Weight from "./components/Pannels/Weight/Weight";
-import BalanceSheet from "./components/Pannels/BalanceSheet/BalanceSheet";
+import Dashboard from "./containers/Dashboard";
 
+import Weight from "./containers/WeightPannel";
+import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
+import "./styles/main.css";
 
 import {
   BrowserRouter as Router,

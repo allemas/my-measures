@@ -1,9 +1,7 @@
 import React from 'react';
-import {Table, Accordion, Card, Button} from 'react-bootstrap';
-import {Line} from 'react-chartjs-2';
+import {Button} from 'react-bootstrap';
 import {Form, Row, Col, Container} from 'react-bootstrap';
 
-import BodyChart from "./BodyChart";
 import OverviewTab from "./OverviewTab";
 
 class BalanceSheet extends React.Component {
@@ -20,7 +18,6 @@ class BalanceSheet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
   handleChange(event) {
     const {name, value} = event.target;
@@ -51,7 +48,6 @@ class BalanceSheet extends React.Component {
   render() {
     return (
       <>
-
         <Container fluid>
           <Row>
             <Col>
@@ -64,7 +60,6 @@ class BalanceSheet extends React.Component {
               <Form onSubmit={this.handleSubmit} onChange={this.handleChange} className="section">
                 <Form.Group>
                   <Form.Label>Mesures</Form.Label>
-
                   <Form.Row>
                     <Col>
                       <Form.Control placeholder="Pectoraux" name="chest"/>
@@ -85,9 +80,6 @@ class BalanceSheet extends React.Component {
                       <Form.Control placeholder="Taille" name="waist"/>
                     </Col>
                   </Form.Row>
-                </Form.Group>
-                <Form.Group>
-
                   <Form.Label>Commentaire</Form.Label>
                   <Form.Row>
                     <Col>
