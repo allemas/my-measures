@@ -29,8 +29,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    //"tab:start:client": "react-scripts start",
-    //"start": "./node_modules/npm-run-all/bin/npm-run-all/index.js tab:start:*",
     "watch": "npm-watch",
     "tab:start:mongo": "ttab -t 'launch mongo' mongod --dbpath=db",
     "tab:start:auth-serv": "ttab -t 'launch mongo' server/node_modules/nodemon/bin/nodemon.js ./server/server.js"
