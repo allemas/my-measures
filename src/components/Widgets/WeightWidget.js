@@ -1,50 +1,39 @@
 import React from 'react';
-import {Table, Accordion, Card, Button} from 'react-bootstrap';
-import {Line} from 'react-chartjs-2';
+import {connect} from 'react-redux'
+import WeightChart from "../Weight/WeightChart";
+import {fetch} from '../../api/weight';
 
 
 class WeightWidget extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {items: [75, 150, 160, 155, 160, 200], value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  componentDidMount() {
+    const props = this.props;
+    fetch('all').then((data) => {
+      props.fetchWeight(data);
+    })
   }
-
-  handleChange(event) {
-    this.setState({...this.state, value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    this.setState({
-        ...this.state, items: this.state.items.concat(this.state.value)
-      }
-    );
-    event.preventDefault();
-  }
-
 
   render() {
-    const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'My WeightWidget',
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          data: this.state.items
-        }
-      ]
-    };
-
     return (
       <div>
-        <Line data={data}/>
+        <WeightChart measures={this.props.weight}/>
       </div>
     );
   }
 }
 
-export default WeightWidget;
+
+const mapStateToProps = (state) => {
+  return {
+    weight: state,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchWeight: (data) => dispatch({type: 'LOAD_WEIGHT_ASYNC', data: data})
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeightWidget);
+

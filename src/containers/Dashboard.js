@@ -1,10 +1,8 @@
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import Dashboard from "../components/Dashboard";
-import * as Actions from '../actions';
 
 const mapStateToProps = state => ({
-  weight: state.weight,
+  weight: state,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,10 +1,12 @@
-import React from 'react';
-import {Table, Accordion, Card, Button} from 'react-bootstrap';
-import {Line} from 'react-chartjs-2';
+import React, {useState} from 'react';
+import {Button} from 'react-bootstrap';
 import {Form, Row, Col, Container} from 'react-bootstrap';
-import DataTable from 'react-data-table-component';
+import DataTable, { createTheme } from 'react-data-table-component';
 
 import WeightChart from "./WeightChart";
+import {fetch} from '../../api/weight';
+
+import ReactLoading from 'react-loading';
 
 
 class Weight extends React.Component {
@@ -12,12 +14,27 @@ class Weight extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props);
+
+
     this.state = {
-      form: {}
+      form: {},
+      isLoading: true,
     };
+
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const props = this.props;
+    const state = this.state;
+    const that = this;
+    fetch('all').then(function (data) {
+      props.fetchWeight(data);
+      that.setState({...state, isLoading: false});
+    })
   }
 
   handleChange(event) {
@@ -40,10 +57,12 @@ class Weight extends React.Component {
       feeling: feeling
     });
 
+
     event.preventDefault();
   }
 
   render() {
+
     const columns = [
       {
         name: 'Date',
@@ -72,6 +91,10 @@ class Weight extends React.Component {
 
     return (
       <Container fluid>
+        {this.state.isLoading &&
+        <ReactLoading type='bars' color="#000"/>
+        }
+        {this.state.isLoading == false &&
         <Row>
           <Col>
             <div className="caneva-weight">
@@ -79,9 +102,12 @@ class Weight extends React.Component {
             </div>
           </Col>
         </Row>
+        }
 
         <Row className="section">
           <Col>
+
+
             <DataTable
               title="Mon poids"
               columns={columns}
@@ -91,6 +117,7 @@ class Weight extends React.Component {
               data={this.props.weight}
               expandableRowsHideExpander='sm'
               pagination={true}
+
             />
           </Col>
         </Row>

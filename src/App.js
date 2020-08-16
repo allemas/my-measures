@@ -9,10 +9,10 @@ import "./styles/main.css";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import {Container, Nav, Navbar} from "react-bootstrap";
+
+import {Nav, Navbar} from "react-bootstrap";
 
 
 /**

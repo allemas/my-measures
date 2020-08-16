@@ -1,32 +1,18 @@
-import {ADD_WEIGHT} from "../actions/ActionTypes";
+import * as Type from "../actions/ActionTypes";
+
 
 const initialState = () => {
-
-//  console.log(localStorage.getItem('reduxState'));
-
-
-  /*if (localStorage.getItem('reduxState')) {
-    return localStorage.getItem('reduxState');
-  }
-*/
-  return [
-    {weight: 85, feeling: "Ca va bien", date: Date.now()},
-    {weight: 86, feeling: "Ca va bien", date: Date.now()},
-    {weight: 85.5, feeling: "Ca va bien", date: Date.now()},
-    {weight: 84.5, feeling: "Ca va bien", date: Date.now()},
-    {
-      weight: 82.5,
-      feeling: "Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien " +
-        "Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien Ca va bien ",
-      date: Date.now()
-    },
-  ];
+  return []
 }
 
 const weightReducer = (state = initialState(), action) => {
+
   switch (action.type) {
-    case ADD_WEIGHT:
-      console.log(action);
+    case Type.LOAD_WEIGHT_ASYNC:
+      console.log("async")
+      return action.data.weight;
+
+    case Type.ADD_WEIGHT:
       return [
         ...state,
         {
@@ -34,13 +20,10 @@ const weightReducer = (state = initialState(), action) => {
           feeling: action.feeling,
           date: Date.now()
         },
-      ]
-      break;
+      ];
     default:
       return state;
   }
-
 };
-
 
 export default weightReducer;

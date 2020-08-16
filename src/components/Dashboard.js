@@ -1,10 +1,8 @@
 import React from 'react';
 
 import {Container, Row, Col, Jumbotron} from 'react-bootstrap';
-import WeightChart from "./Weight/WeightChart";
-import * as Actions from '../actions';
 import PropTypes from 'prop-types'
-
+import WeightWidget from "./Widgets/WeightWidget";
 
 const Dashboard = ({weight, addWeight}) => (
   <div>
@@ -21,10 +19,15 @@ const Dashboard = ({weight, addWeight}) => (
     </Jumbotron>
     <Row>
       <Col md={6}>
-        <WeightChart measures={weight}/>
+        <WeightWidget/>
       </Col>
     </Row>
   </div>
 );
+
+Dashboard.propTypes = {
+  weight: PropTypes.array,
+  addWeight: PropTypes.func.isRequired
+};
 
 export default (Dashboard);

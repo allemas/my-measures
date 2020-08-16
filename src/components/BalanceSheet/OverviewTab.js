@@ -1,11 +1,7 @@
 import React from 'react';
-import {Form, Row, Col, Container} from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 
-
 class OverviewTab extends React.Component {
-
-
   setColumns() {
     return [
       {

@@ -3,7 +3,9 @@ import {Line} from 'react-chartjs-2';
 
 
 class WeightChart extends React.Component {
+
   render() {
+    console.log(this.props);
     const data = {
       labels: this.props.measures.map((val) => new Date(val.date * 1000).toDateString()),
       datasets: [
@@ -65,4 +67,4 @@ class WeightChart extends React.Component {
 
 };
 
-export default WeightChart;
+export default (WeightChart);
