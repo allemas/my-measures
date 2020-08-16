@@ -29,7 +29,7 @@
     "ttab": "^0.6.1"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": " node ./node_modules/serve/bin/serve.js -s build",
     "watch": "npm-watch",
     "install": "react-scripts build"
   },
