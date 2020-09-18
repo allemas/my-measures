@@ -1,23 +1,34 @@
-import {ADD_WEIGHT} from "../actions/ActionTypes";
+import {BALANCE_SHEET_ADD, BALANCE_SHEET_LOAD_ASYNC} from "../actions/ActionTypes";
 
-const weightReducer = (state = [], action) => {
+const balanceSheetReducer = (state = [], action) => {
   switch (action.type) {
-    case ADD_WEIGHT:
-      console.log(action);
+    case BALANCE_SHEET_ADD:
       return [
         ...state,
+
         {
-          weight: action.weight,
-          feeling: action.feeling,
-          date: Date.now()
+          "chest": parseInt(action.data.chest),
+          "shoulders": parseInt(action.data.shoulders),
+          "arms": parseInt(action.data.arms),
+          "back": parseInt(action.data.back),
+          "waist": parseInt(action.data.waist),
+          "thigh": parseInt(action.data.thigh),
+
         },
       ]
-      break;
+
+    case BALANCE_SHEET_LOAD_ASYNC:
+      return [
+        ...state,
+        ...action.data
+      ];
+
     default:
       return state;
   }
 
+
 };
 
 
-export default weightReducer;
+export default balanceSheetReducer;

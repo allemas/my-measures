@@ -3,18 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/error-message": "0.0.4",
+    "@material-ui/core": "^4.11.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "cra-template": "1.0.3",
+    "jwt-decode": "^2.2.0",
     "keycloak-js": "^11.0.0",
+    "material-ui": "^0.20.2",
+    "moment": "^2.27.0",
     "npm-run-all": "^4.1.5",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.2",
     "react-chartjs-2": "^2.9.0",
+    "react-cookie": "^4.0.3",
     "react-data-table-component": "^6.9.7",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.7.2",
     "react-loading": "^2.0.3",
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
@@ -28,11 +35,10 @@
     "ttab": "^0.6.1"
   },
   "scripts": {
+    "tab:start:db": "./node_modules/ttab/bin/ttab -t db docker-compose up ",
+    "tab:start:api": "PATH=/usr/local/Cellar/php/7.4.9/bin/:$PATH ./node_modules/ttab/bin/ttab -t api -d /var/www/my-measures/api symfony serve",
     "start": "./node_modules/npm-run-all/bin/npm-run-all/index.js tab:start:*",
-    "watch": "npm-watch",
-    "tab:start:client": "react-scripts start",
-    "tab:start:mongo": "ttab -t 'launch mongo' mongod --dbpath=db",
-    "tab:start:auth-serv": "ttab -t 'launch mongo' server/node_modules/nodemon/bin/nodemon.js ./server/server.js"
+    "start-front": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

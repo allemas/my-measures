@@ -1,0 +1,32 @@
+api_platform:
+    title: My Measures API
+  # The version of the API.
+    version: '0.0.0'
+
+  # Set this to false if you want Webby to disappear.
+    show_webby: true
+
+  # Specify a name converter to use.
+    name_converter: ~
+
+  # Specify a path name generator to use.
+    path_segment_name_generator: 'api_platform.path_segment_name_generator.underscore'
+
+  # Allow using plain IDs for JSON format
+    allow_plain_identifiers: true
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+
+    patch_formats:
+        json: ['application/merge-patch+json']
+
+    swagger:
+        versions: [3]
+        api_keys:
+          apiKey:
+            name: Authorization
+            type: header
+
+    # Mercure integration, remove if unwanted
+    mercure:
+        hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'

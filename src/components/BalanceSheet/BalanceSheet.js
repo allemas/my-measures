@@ -1,117 +1,173 @@
-import React from 'react';
-import {Button} from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
 import {Form, Row, Col, Container} from 'react-bootstrap';
+import {useForm, Controller} from "react-hook-form";
+import {Input, TextField, Checkbox} from "@material-ui/core";
+import {Button} from 'react-bootstrap';
+import {fetch, post, apifetcher, pushbalance, getBalance} from '../../api/weight';
+import DataTable from "react-data-table-component";
+import {useDispatch, useSelector} from "react-redux";
+import {connect} from 'react-redux'
 
-import OverviewTab from "./OverviewTab";
+const BalanceSheet = (props) => {
 
-class BalanceSheet extends React.Component {
+  useEffect(() => {
+    const md = getBalance({user_uid: '7b129eb6-106a-4327-976d-a9a28e941fa9'}).then(response => {
+      props.loadBalanceSheet(response.data);
+    }).catch(console.log);
+  }, []);
 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      measures: [
-        {arms: 10, thighs: 25, shoulders: 15, back: 110, chest: 150, waist: 110, date: 1594906105868},
-      ], form: {}
-    };
+  const {errors, register, control, handleSubmit} = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    defaultValues: {},
+    resolver: undefined,
+    context: undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
+    shouldUnregister: true,
+  });
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  /*
+  * https://thoughtbot.com/blog/using-redux-with-react-hooks
+  * */
 
-  handleChange(event) {
-    const {name, value} = event.target;
-    this.setState(prevState => ({
-      ...prevState,
-      form: {
-        ...prevState.form,
-        [name.toLowerCase()]: value
+  const onSubmit = data => {
+    const date = new Date();
+    pushbalance({
+      "date": date.toISOString(),
+      "chest": parseInt(data.chest),
+      "shoulders": parseInt(data.shoulders),
+      "arms": parseInt(data.arms),
+      "back": parseInt(data.back),
+      "waist": parseInt(data.waist),
+      "thigh": parseInt(data.thigh),
+      user: props.user.uid
+    }).then((response) => {
+        let data = response.data;
+
+        props.publishBalanceSheet({
+            "chest": parseInt(data.chest),
+            "shoulders": parseInt(data.shoulders),
+            "arms": parseInt(data.arms),
+            "back": parseInt(data.back),
+            "waist": parseInt(data.waist),
+            "thigh": parseInt(data.thigh),
+          }
+        );
       }
-    }));
-  }
+    ).catch(data => console.log(data)
+    )
+    ;
+  };
 
-  handleSubmit(event) {
-    const values = {
-      ...this.state.form,
-      date: Date.now()
-    };
+  const columns = [
+    {
+      name: 'Date',
+      selector: 'date',
+    },
+    {
+      name: 'Pectoraux',
+      selector: 'chest',
+    },
+    {
+      name: 'Epaules',
+      selector: 'shoulders',
+    },
+    {
+      name: 'Cuisses',
+      selector: 'thigh',
+    },
+    {
+      name: 'Bras',
+      selector: 'arms',
+    },
+    {
+      name: 'Dos',
+      selector: 'back',
+    },
+    {
+      name: 'Taille',
+      selector: 'waist',
+    },
+  ];
 
-    this.setState(prevState => ({
-      ...prevState,
-      measures: prevState.measures.concat(values)
-    }));
 
-    event.preventDefault();
-  }
-
-
-  render() {
-    return (
-      <>
-        <Container fluid>
-          <Row>
-            <Col>
-              <OverviewTab measures={this.state.measures}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <h5>Faire un bilan</h5>
-              <Form onSubmit={this.handleSubmit} onChange={this.handleChange} className="section">
-                <Form.Group>
-                  <Form.Label>Mesures</Form.Label>
-                  <Form.Row>
-                    <Col>
-                      <Form.Control placeholder="Pectoraux" name="chest"/>
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder="Epaules" name="shoulders"/>
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder="Cuisses" name="thighs"/>
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder="Bras" name="arms"/>
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder="Dos" name="back"/>
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder="Taille" name="waist"/>
-                    </Col>
-                  </Form.Row>
-                  <Form.Label>Commentaire</Form.Label>
-                  <Form.Row>
-                    <Col>
-                      <Form.Group controlId="">
-                        <Form.Control as="textarea" rows="3" name="feeling" placeholder="Comment je me sens ?"/>
-                      </Form.Group>
-                    </Col>
-                  </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                  <Button variant="primary" type="submit">
-                    Envoyer
-                  </Button>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              {/*
-        <BodyChart measures={this.state.measures}/>
-          */
+  return (<>
+    <Container fluid>
+      <Row>
+        <Col> &nbsp;
+        </Col>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          {errors.chest && errors.chest.message}
+          {errors.shoulders && errors.shoulders.message}
+          {errors.thighs && errors.thighs.message}
+          {errors.arms && errors.arms.message}
+          {errors.back && errors.back.message}
+          {errors.waist && errors.waist.message}
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Row>
+              <Controller as={TextField} name="chest" placeholder="Pectoraux" control={control} defaultValue=""
+                          rules={{required: "Mesure pectoraux requis"}}
+              />
+              <Controller as={TextField} name="shoulders" placeholder="Epaules" control={control} defaultValue=""
+                          rules={{required: "Mesure Epaules requis"}}
+              />
+              <Controller as={TextField} name="thigh" placeholder="Cuisses" control={control} defaultValue=""
+                          rules={{required: "Mesure Cuisses requis"}}
+              />
+              <Controller as={TextField} name="arms" placeholder="Bras" control={control} defaultValue=""
+                          rules={{required: "Mesure Bras requis"}}
+              />
+              <Controller as={TextField} name="back" placeholder="Dos" control={control} defaultValue=""
+                          rules={{required: "Mesure Dos requis"}}
+              />
+              <Controller as={TextField} name="waist" placeholder="Taille" control={control} defaultValue=""
+                          rules={{required: "Mesure Taille requis"}}
+              />
+              <Button type="submit">
+                Envoyer
+              </Button>
+            </Form.Row>
+          </Form>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <DataTable
+            title="Evolution"
+            columns={columns}
+            responsive={true}
+            data={props.balance.map(item => {
+              var mydate = new Date(item.date);
+              return {
+                ...item,
+                'date': mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
               }
-            </Col>
-          </Row>
-        </Container>
-      </>
-
-    );
-  }
+            })
+            }
+            pagination={true}
+          />
+        </Col>
+      </Row>
+    </Container>
+  </>)
+    ;
 
 
 }
 
-export default BalanceSheet;
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  balance: state.balanceSheet
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  publishBalanceSheet: data => dispatch({type: 'BALANCE_SHEET_ADD', data: data}),
+  loadBalanceSheet: data => dispatch({type: 'BALANCE_SHEET_LOAD_ASYNC', data: data}),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BalanceSheet);

@@ -8,17 +8,13 @@ const initialState = () => {
 const weightReducer = (state = initialState(), action) => {
 
   switch (action.type) {
-    case Type.LOAD_WEIGHT_ASYNC:
-      console.log("async")
-      return action.data.weight;
-
     case Type.ADD_WEIGHT:
       return [
         ...state,
         {
           weight: action.weight,
           feeling: action.feeling,
-          date: Date.now()
+          date: action.date
         },
       ];
     default:

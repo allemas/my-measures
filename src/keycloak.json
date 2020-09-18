@@ -1,8 +1,0 @@
-{
-  "realm": "my-measures",
-  "auth-server-url": "http://localhost:8080/auth/",
-  "ssl-required": "none",
-  "resource": "my-measures-client",
-  "public-client": true,
-  "confidential-port": 0
-}

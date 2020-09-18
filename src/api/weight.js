@@ -1,3 +1,5 @@
+const axios = require('axios').default;
+
 const fakeData = {
     weight: [
       {"weight": 100, "feeling": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "date": 1597007847315},
@@ -88,3 +90,29 @@ export const fetch = (filter) => {
     }
   });
 }
+
+export const post = (data) => {
+  return axios.post('https://localhost:8000/weights', data);
+}
+
+export const apifetcher = (filter) => {
+  return axios.get('https://localhost:8000/weights?users=' + filter.user_uid, {
+      headers: {
+        Accept: "application/json",
+      }
+    }
+  );
+};
+
+export const pushbalance = (data) => {
+  return axios.post('https://localhost:8000/balance_sheets', data);
+}
+
+export const getBalance = (data) => {
+  return axios.get('https://localhost:8000/balance_sheets?user=' + data.user_uid, {
+      headers: {
+        Accept: "application/json",
+      }
+    }
+  );
+};

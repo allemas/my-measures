@@ -1,15 +1,20 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import weight from "./weight";
+import user from "./user";
+import balanceSheet from "./balanceSheet";
 
 import {logger} from 'redux-logger'
 import {fetch} from '../api/weight';
 
 const reduxthunk = require("redux-thunk").default;
 
-
-
-const store = createStore(
+const stores = combineReducers({
   weight,
+  user,
+  balanceSheet
+});
+
+const store = createStore(stores,
   applyMiddleware(logger, reduxthunk),
 );
 

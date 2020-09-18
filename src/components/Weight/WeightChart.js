@@ -5,9 +5,13 @@ import {Line} from 'react-chartjs-2';
 class WeightChart extends React.Component {
 
   render() {
-    console.log(this.props);
     const data = {
-      labels: this.props.measures.map((val) => new Date(val.date * 1000).toDateString()),
+      labels: this.props.measures.map(item => {
+        var mydate = new Date(item.date);
+        return mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
+      }),
+
+
       datasets: [
         {
           label: 'Mon poids',
@@ -24,7 +28,9 @@ class WeightChart extends React.Component {
               }
             }
           ],
-
+          backgroundColor: 'rgba(0, 141, 213,0.2)',
+          borderColor: 'rgba(75,192,192,0.5)',
+          borderWidth: 2,
           data: this.props.measures.map((val) => val.weight),
         }
       ]
@@ -33,10 +39,10 @@ class WeightChart extends React.Component {
     const options = {
       title: {
         display: true,
-        text: "Chart Title"
+        text: "Mon poids"
       },
       backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(0, 141, 213, 1)',
       layout: {
         padding: {
           left: 0,
@@ -46,7 +52,6 @@ class WeightChart extends React.Component {
         }
       },
       scales: {
-
         yAxes: [
           {
             ticks: {
