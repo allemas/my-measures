@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Form, Row, Col, Container, Alert, Button, Collapse} from 'react-bootstrap';
-import DataTable, {createTheme} from 'react-data-table-component';
+import DataTable from 'react-data-table-component';
 import WeightChart from "./WeightChart";
-import {fetch, post, apifetcher} from '../../api/weight';
+import {post, apifetcher} from '../../api/weight';
 import ReactLoading from 'react-loading';
 import checkAuth from "../Login/CheckAuth";
 import "../../styles/main.css";
@@ -32,13 +32,15 @@ class Weight extends React.Component {
       user_uid: this.props.user.uid
     }).then(response => {
 
-        response.data.map(item => {
-          that.props.addWeight({
-            weight: item.value,
-            date: item.date,
-            feeling: item.feeling
-          });
-        });
+        response.data.map(
+          item => {
+            that.props.addWeight({
+              weight: item.value,
+              date: item.date,
+              feeling: item.feeling
+            });
+          }
+        );
 
         that.setState({...that.state, isLoading: false});
       }

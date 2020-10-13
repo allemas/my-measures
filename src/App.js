@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Dashboard from "./containers/Dashboard";
+import Dashboard from "./components/Dashboard";
 
 import Weight from "./containers/WeightPannel";
 import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
@@ -10,7 +10,8 @@ import {useCookies} from "react-cookie";
 import {fetch} from './api/user';
 import {useDispatch, useSelector} from "react-redux";
 import {Nav, Navbar, Form, FormControl, Button} from "react-bootstrap";
-import "./styles/main.css";
+import "./styles/main.css"
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,6 +21,8 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
+import Training from "./components/Training/Training";
+import TrainingDetail from "./components/Training/TrainingDetail";
 
 
 const axios = require('axios').default;
@@ -32,6 +35,7 @@ const jwtDecode = require('jwt-decode');
 
 const checkAuth = (props) => {
   var token = localStorage.getItem("MY_MEASURE_AUTH_TOKEN");
+
   if (token != null) {
     var data = jwtDecode(token);
     // @todo vérifier signature token
@@ -54,8 +58,9 @@ const MyMeasureNavbar = () => {
     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav.Link href="/">Tableau de bord</Nav.Link>
-      <Nav.Link href="/weight">Mon Poids</Nav.Link>
-      <Nav.Link href="/balance-sheet">Mes Bilans</Nav.Link>
+      <Nav.Link href="/weight">Mon poids</Nav.Link>
+      <Nav.Link href="/balance-sheet">Mes bilans</Nav.Link>
+      <Nav.Link href="/training">Mes entrainements</Nav.Link>
     </Navbar.Collapse>
     <Navbar.Collapse className="justify-content-end">
       <Nav.Link href="/balance" className="my-measures-nav-link">{user}</Nav.Link>
@@ -84,6 +89,8 @@ const PrivateRoute = ({isLoggedIn, children, ...rest}) => {
 
 function App(props) {
 
+  const auth_checker = checkAuth(props);
+
   return (
     <Router>
       <div>
@@ -91,18 +98,25 @@ function App(props) {
           <Route path="/login">
             <Login/>
           </Route>
-
-          <PrivateRoute path="/weight" isLoggedIn={checkAuth(props)}>
+          <PrivateRoute path="/weight" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
             <Weight/>
           </PrivateRoute>
-
-          <PrivateRoute path="/balance-sheet" isLoggedIn={checkAuth(props)}>
+          <PrivateRoute path="/balance-sheet" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
             <BalanceSheet/>
           </PrivateRoute>
+          <PrivateRoute path="/training/show/:id_training" isLoggedIn={auth_checker}>
+            <MyMeasureNavbar/>
+            <TrainingDetail/>
+          </PrivateRoute>
+          <PrivateRoute path="/training" isLoggedIn={auth_checker}>
+            <MyMeasureNavbar/>
+            <Training/>
+          </PrivateRoute>
 
-          <PrivateRoute path="/" isLoggedIn={checkAuth(props)}>
+
+          <PrivateRoute path="/" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
             <Dashboard/>
           </PrivateRoute>
@@ -114,7 +128,7 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({
-  weight: state,
+  weight: state.weight,
   user: state.user
 });
 

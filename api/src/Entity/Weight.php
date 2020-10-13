@@ -14,6 +14,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ApiResource(
  *    normalizationContext={"groups"={"weight"}})
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "get_weather": {
+ *             "method": "GET",
+ *             "path": "/places/{id}/weather",
+ *             "controller": GetWeather::class
+ *         }
  * )
  * @ApiFilter(SearchFilter::class, properties={"user": "exact"})
  * @ORM\Entity(repositoryClass=WeightRepository::class)

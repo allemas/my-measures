@@ -1,6 +1,5 @@
 import {connect} from 'react-redux'
 import Weight from "../components/Weight/Weight";
-import {fetch} from "../api/weight";
 
 const mapStateToProps = state => ({
   weight: state.weight,

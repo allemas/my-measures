@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Jumbotron, Form, Button} from 'react-bootstrap';
+import {Form, Button} from 'react-bootstrap';
 import ReactLoading from 'react-loading';
 import {connect} from 'react-redux'
 
@@ -14,20 +14,17 @@ const jwtDecode = require('jwt-decode');
 
 class Login extends React.Component {
   constructor(props) {
-
-
     super(props);
-
     this.state = {
       isLoading: false,
       token: null,
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    const {name, value} = event.target;
   }
 
   handleSubmit(event) {
@@ -41,19 +38,13 @@ class Login extends React.Component {
       .then(function (response) {
         that.setState({...that.state, isLoading: false});
 
-        if (response.status == 200) {
+        if (response.status === 200) {
           var token = response.data.token;
           localStorage.setItem('MY_MEASURE_AUTH_TOKEN', token);
-
-
           if (token != null) {
             var data = jwtDecode(token);
-
             fetch(data.uid).then(data => {
-
               var payload = data.data;
-              console.log(payload);
-
               that.props.connectUser({
                 token,
                 data: payload
@@ -78,7 +69,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="box">
-        {this.props.user.isLoggedIn == true &&
+        {this.props.user.isLoggedIn === true &&
         <Redirect
           to={{
             pathname: "/",
@@ -93,29 +84,23 @@ class Login extends React.Component {
         </div>
         <div className="two">
           <div className='wrapper-connect'>
-
-
             <h2 className="logo">Enfin ! <br/>Nous t'attendions</h2>
-
             <Form onSubmit={this.handleSubmit} onChange={this.handleChange} className="form">
               <Form.Group controlId="">
                 <Form.Control type="text" placeholder="Email" name="email"/>
                 <Form.Control type="password" placeholder="Mot de passe" name="password"/>
               </Form.Group>
 
-              {this.state.isLoading == false &&
+              {this.state.isLoading === false &&
               <Button variant="primary" type="submit">
                 Connexion
               </Button>
               }
-
               {this.state.isLoading &&
               <ReactLoading type='bars' color="#008DD5" width="30px"/>
               }
             </Form>
           </div>
-
-
         </div>
       </div>
     );

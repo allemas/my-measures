@@ -1,0 +1,22 @@
+.toolbar-training {
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.training-button {
+  font-size: 0.8rem;
+  color: #1976d2;
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  padding: 5px 10px;
+  min-width: 54px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.training-add-button{
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}

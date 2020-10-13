@@ -1,20 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Form, Row, Col, Container} from 'react-bootstrap';
 import {useForm, Controller} from "react-hook-form";
-import {Input, TextField, Checkbox} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {Button} from 'react-bootstrap';
-import {fetch, post, apifetcher, pushbalance, getBalance} from '../../api/weight';
+import {pushbalance, getBalance} from '../../api/weight';
 import DataTable from "react-data-table-component";
-import {useDispatch, useSelector} from "react-redux";
 import {connect} from 'react-redux'
 
 const BalanceSheet = (props) => {
 
   useEffect(() => {
-    const md = getBalance({user_uid: '7b129eb6-106a-4327-976d-a9a28e941fa9'}).then(response => {
+    getBalance({user_uid: '7b129eb6-106a-4327-976d-a9a28e941fa9'}).then(response => {
       props.loadBalanceSheet(response.data);
     }).catch(console.log);
-  }, []);
+  });
 
 
   const {errors, register, control, handleSubmit} = useForm({

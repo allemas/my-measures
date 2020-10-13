@@ -8,11 +8,10 @@ const checkAuth = (props) => {
     var data = jwtDecode(token);
     // @todo vérifier signature token
 
-    if (props.user == "")
+    if (props.user === "")
       fetch(data.uid).then(data => {
         props.connectUser(data);
       });
-    //console.log(data.uid);
     return true;
   }
 
