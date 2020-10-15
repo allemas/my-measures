@@ -16,7 +16,6 @@ const trainingReducer = (state = initialState(), action) => {
         ...state,
         ...action.listTraining
       ]
-      break;
     case "LOAD_ONE_TRAINING":
       return [
         ...state,
