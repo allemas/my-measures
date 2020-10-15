@@ -37,7 +37,6 @@ const TrainingList = (props) => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>#</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>-</TableCell>
@@ -45,18 +44,18 @@ const TrainingList = (props) => {
           </TableHead>
 
           <TableBody>
-            {listTraining.map((row, index) => (
-              <TableRow key={row.uid}>
-                <TableCell component="th" scope="row">
-                  Entrainement #{index + 1}
-                </TableCell>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.state}</TableCell>
-                <TableCell>
-                  <Link to={`/training/show/${row.uuid}`} className="training-button">Editer</Link>
-                </TableCell>
-              </TableRow>
-            ))}
+            {listTraining.map((row, index) => {
+              var mydate = new Date(row.date);
+              return (
+                <TableRow key={index}>
+                  <TableCell> {mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')}</TableCell>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    <Link to={`/training/show/${row.uuid}`} className="training-button">Editer</Link>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

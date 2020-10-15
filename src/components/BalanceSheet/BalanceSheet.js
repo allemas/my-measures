@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap';
 import {pushbalance, getBalance} from '../../api/weight';
 import DataTable from "react-data-table-component";
 import {connect} from 'react-redux'
+import {BalanceSheetColumn} from "./BalanceSheetColumns";
 
 const BalanceSheet = (props) => {
 
@@ -44,7 +45,6 @@ const BalanceSheet = (props) => {
       user: props.user.uid
     }).then((response) => {
         let data = response.data;
-
         props.publishBalanceSheet({
             "chest": parseInt(data.chest),
             "shoulders": parseInt(data.shoulders),
@@ -60,36 +60,6 @@ const BalanceSheet = (props) => {
     ;
   };
 
-  const columns = [
-    {
-      name: 'Date',
-      selector: 'date',
-    },
-    {
-      name: 'Pectoraux',
-      selector: 'chest',
-    },
-    {
-      name: 'Epaules',
-      selector: 'shoulders',
-    },
-    {
-      name: 'Cuisses',
-      selector: 'thigh',
-    },
-    {
-      name: 'Bras',
-      selector: 'arms',
-    },
-    {
-      name: 'Dos',
-      selector: 'back',
-    },
-    {
-      name: 'Taille',
-      selector: 'waist',
-    },
-  ];
 
 
   return (<>
@@ -137,7 +107,7 @@ const BalanceSheet = (props) => {
         <Col>
           <DataTable
             title="Evolution"
-            columns={columns}
+            columns={BalanceSheetColumn}
             responsive={true}
             data={props.balance.map(item => {
               var mydate = new Date(item.date);
