@@ -21,12 +21,12 @@ export const getTrainingByUid = async (uuid) => {
 
 
 export const postTraining = (data) => {
-  var date = new Date;
+  var date = new Date();
   return axios.post('https://localhost:8000/trainings', {...data, date: date.toISOString()});
 }
 
 export const putTraining = (data) => {
-  var date = new Date;
+  var date = new Date();
 
   return axios.put('https://localhost:8000/trainings/' + data.uuid, {...data, date: date.toISOString()});
 }
