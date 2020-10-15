@@ -6,10 +6,9 @@ import Weight from "./containers/WeightPannel";
 import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
 import Login from './components/Login/Login';
 import {connect} from 'react-redux'
-import {useCookies} from "react-cookie";
 import {fetch} from './api/user';
-import {useDispatch, useSelector} from "react-redux";
-import {Nav, Navbar, Form, FormControl, Button} from "react-bootstrap";
+import {useSelector} from "react-redux";
+import {Nav, Navbar} from "react-bootstrap";
 import "./styles/main.css"
 
 import {
