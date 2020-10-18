@@ -11,7 +11,6 @@ class WeightChart extends React.Component {
         return mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
       }),
 
-
       datasets: [
         {
           label: 'Mon poids',
@@ -31,7 +30,7 @@ class WeightChart extends React.Component {
           backgroundColor: 'rgba(0, 141, 213,0.2)',
           borderColor: 'rgba(75,192,192,0.5)',
           borderWidth: 2,
-          data: this.props.measures.map((val) => val.weight),
+          data: this.props.measures.map((val) => val.value),
         }
       ]
     };
@@ -55,8 +54,8 @@ class WeightChart extends React.Component {
         yAxes: [
           {
             ticks: {
-              suggestedMin: Math.min.apply(Math, this.props.measures.map((val) => val.weight)) - 15,
-              suggestedMax: Math.max.apply(Math, this.props.measures.map((val) => val.weight)) + 5,
+              suggestedMin: Math.min.apply(Math, this.props.measures.map((val) => val.value)) - 15,
+              suggestedMax: Math.max.apply(Math, this.props.measures.map((val) => val.value)) + 5,
             }
           }
         ]

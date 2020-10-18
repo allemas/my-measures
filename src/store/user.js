@@ -14,8 +14,6 @@ const userReducer = (state = initialState(), action) => {
         isLoggedIn: true
       };
 
-
-
     default:
       return state;
   }

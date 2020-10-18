@@ -2,7 +2,7 @@ import React from 'react';
 
 import Dashboard from "./components/Dashboard";
 
-import Weight from "./containers/WeightPannel";
+import Weight from "./components/Weight/Weight";
 import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
 import Login from './components/Login/Login';
 import {connect} from 'react-redux'
@@ -15,10 +15,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
-  useHistory,
-  useLocation
 } from "react-router-dom";
 import Training from "./components/Training/Training";
 import TrainingDetail from "./components/Training/TrainingDetail";

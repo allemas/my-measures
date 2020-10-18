@@ -13,16 +13,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
- *    normalizationContext={"groups"={"weight"}})
- *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
- *         "get_weather": {
- *             "method": "GET",
- *             "path": "/places/{id}/weather",
- *             "controller": GetWeather::class
- *         }
+ *     collectionOperations={"get","post", "put", "delete"},
+ *     itemOperations={"get","post", "put", "delete"}
  * )
  * @ApiFilter(SearchFilter::class, properties={"user": "exact"})
  * @ORM\Entity(repositoryClass=WeightRepository::class)
@@ -38,26 +30,22 @@ class Weight
 
   /**
    * @ORM\Column(type="integer")
-   * @Groups({"weight", "write"})
    */
   private $value;
 
   /**
    * @ORM\Column(type="datetime")
-   * @Groups({"weight", "write"})
    */
   private $date;
 
   /**
    * @ORM\Column(type="text", nullable=true)
-   * @Groups({"weight", "write"})
    */
   private $feeling;
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class)
    * @ORM\JoinColumn(nullable=false)
-   * @Groups({"weight", "write"})
    */
   private $user;
 

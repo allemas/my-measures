@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Button, Row, Col, Modal, Form, ButtonGroup, ToggleButton} from 'react-bootstrap';
+import {Container, Button, Row, Col} from 'react-bootstrap';
 import {useParams} from "react-router";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -8,11 +8,10 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
-import {fetchTraining, getTrainingByUid, putTraining} from "../../api/training";
-
+import {getTrainingByUid, putTraining} from "../../api/training";
+import {getExercices} from "../../api/exercices";
 import AddSet from "./Exercice/AddSet";
 
-const axios = require('axios').default
 
 const TrainingDetail = (props) => {
   const [modalshow, setShow] = useState(false);
@@ -26,18 +25,11 @@ const TrainingDetail = (props) => {
     }).catch(console.error);
   }, [JSON.stringify(training)]);
 
-
   useEffect(() => {
-    axios.get("https://localhost:8000/exercices",
-      {
-        headers: {
-          Accept: "application/json",
-        }
-      }
-    ).then(item => {
+    getExercices().then(item => {
       setExercice(item.data);
     });
-  }, []);
+  }, [JSON.stringify(exercicesList)]);
 
   return (<>
     <Container fluid>

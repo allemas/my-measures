@@ -31,7 +31,6 @@ const BalanceSheet = (props) => {
   /*
   * https://thoughtbot.com/blog/using-redux-with-react-hooks
   * */
-
   const onSubmit = data => {
     const date = new Date();
     pushbalance({

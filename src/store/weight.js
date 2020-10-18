@@ -1,25 +1,35 @@
 import * as Type from "../actions/ActionTypes";
 
 
-const initialState = () => {
+export const initialState = () => {
   return []
 }
 
 const weightReducer = (state = initialState(), action) => {
 
   switch (action.type) {
-    case Type.ADD_WEIGHT:
+    case "ADD_WEIGHT":
       return [
         ...state,
         {
-          weight: action.weight,
-          feeling: action.feeling,
-          date: action.date
+          value: action.data.value,
+          feeling: action.data.feeling,
+          date: action.data.date
         },
       ];
+    case "SUPR_WEIGHT":
+      console.log(action);
+      return state.filter(item => item.id !== action.id);
+
+    case 'ASYNCH_LOAD_WEIGHT':
+      return [
+        ...action.data
+      ];
+
     default:
       return state;
   }
+
 };
 
 export default weightReducer;
