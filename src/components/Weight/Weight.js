@@ -11,19 +11,18 @@ import AddWeight from "./AddWeight";
 import weightReducer, {initialState} from "../../store/weight";
 
 const Weight = (props) => {
+
   const [state, dispatch] = useReducer(weightReducer, [], initialState);
   const user = useSelector(state => state.user);
 
   useEffect(() => {
     fetchUserWeight(user).then((response) => {
-      console.log(response);
       dispatch({
         type: 'ASYNCH_LOAD_WEIGHT',
         data: response.data
       });
     });
   }, [user]);
-
 
   return (
     <>

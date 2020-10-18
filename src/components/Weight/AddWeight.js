@@ -45,7 +45,7 @@ const AddWeight = ({state, dispatch}) => {
 
   return (
     <div style={{marginTop: 25, marginBottom: 15, textAlign: 'right'}}>
-      <Fab color="primary" variant="extended" style={{boxShadow: "none"}} onClick={() => setShow(true)}>
+      <Fab color="primary" variant="extended" style={{boxShadow: "none", background: "#30343F"}} onClick={() => setShow(true)}>
         <AddIcon/>
         Ajouter une mesure
       </Fab>
