@@ -47,4 +47,3 @@ const trainingReducer = (state = initialState(), action) => {
 };
 
 export default trainingReducer;
-//"/trainings/e20582e6-2ff4-41c9-b861-bdc84b5f6d1e"

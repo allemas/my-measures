@@ -5,7 +5,6 @@ import balanceSheet from "./balanceSheet";
 import training from "./training";
 
 import {createLogger} from 'redux-logger'
-import {fetch} from '../api/weight';
 
 const logger = createLogger({
   diff: true,

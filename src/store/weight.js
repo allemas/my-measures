@@ -1,6 +1,3 @@
-import * as Type from "../actions/ActionTypes";
-
-
 export const initialState = () => {
   return []
 }

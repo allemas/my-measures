@@ -1,11 +1,10 @@
-import {BALANCE_SHEET_ADD, BALANCE_SHEET_LOAD_ASYNC} from "../actions/ActionTypes";
-
 export const initialState = () => {
   return []
 }
+
 const balanceSheetReducer = (state = [], action) => {
   switch (action.type) {
-    case BALANCE_SHEET_ADD:
+    case 'BALANCE_SHEET_ADD':
       return [
         ...state,
         {
@@ -19,7 +18,7 @@ const balanceSheetReducer = (state = [], action) => {
         },
       ]
 
-    case BALANCE_SHEET_LOAD_ASYNC:
+    case 'BALANCE_SHEET_LOAD_ASYNC':
       return [
         ...action.data
       ];
