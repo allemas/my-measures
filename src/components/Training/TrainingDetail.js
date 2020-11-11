@@ -31,16 +31,30 @@ const TrainingDetail = (props) => {
     });
   }, [JSON.stringify(exercicesList)]);
 
+  const sumWeight = (items) => {
+    var val = 0;
+    items.forEach(item => {
+      val += parseInt(item.weight);
+    });
+    return val;
+  }
+
+
   return (<>
     <Container fluid>
-      <Row>&nbsp;</Row>
+      <Row> <Col className="toolbar-training">
+        <Button onClick={() => setShow(true)}>Nouvelle série</Button>
+      </Col></Row>
       <Row>
         <Col>
-          <p>Vous avez effectué {training ? training.bodyPart.length : 0} séries</p>
+          <p>Vous avez effectué {training ? training.bodyPart.length : 0} séries / {training ? training.bodyPart.length : 0} planifiée</p>
         </Col>
-        <Col className="toolbar-training">
-          <Button onClick={() => setShow(true)}>Nouvelle série</Button>
+        <Col>
+          {training ?
+            <b>Tonnage : {sumWeight(training.bodyPart)} Kg</b>
+            : ""}
         </Col>
+
       </Row>
       <Row>&nbsp;</Row>
       <TableContainer component={Paper}>

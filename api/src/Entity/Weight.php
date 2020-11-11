@@ -10,13 +10,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 /**
  * @ApiResource(
- *     collectionOperations={"get","post", "put", "delete"},
- *     itemOperations={"get","post", "put", "delete"}
+ *     collectionOperations={"get","post",
+ *      "get_shortlist": {
+ *        "method": "GET",
+ *        "path": "/weights/short",
+ *        "input_formats": "json",
+ *        "pagination_items_per_page"=5,
+ *        }
+ *      },
+ *     itemOperations={"get", "delete", "put"}
  * )
  * @ApiFilter(SearchFilter::class, properties={"user": "exact"})
+ * @ApiFilter(OrderFilter::class, properties={"date"="desc"})
  * @ORM\Entity(repositoryClass=WeightRepository::class)
  */
 class Weight

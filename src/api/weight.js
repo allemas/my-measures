@@ -38,6 +38,15 @@ export const fetchUserWeight = (filter) => {
   );
 };
 
+export const fetchUserWeightShort = (user_uid) => {
+  return axios.get('https://localhost:8000/weights/short?users=' + user_uid+ '&order[date]=desc', {
+      headers: {
+        Accept: "application/json",
+      }
+    }
+  );
+};
+
 export const pushbalance = (data) => {
   return axios.post('https://localhost:8000/balance_sheets', data);
 }

@@ -1,16 +1,14 @@
 import React from 'react';
 
-import Dashboard from "./components/Dashboard";
-
-import Weight from "./components/Weight/Weight";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import WeightPage from "./containers/WeightPage/WeightPage";
 import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
-import Login from './components/Login/Login';
+import Login from "./containers/Login/Login";
 import {connect} from 'react-redux'
 import {fetch} from './api/user';
 import {useSelector} from "react-redux";
 import {Nav, Navbar} from "react-bootstrap";
 import "./styles/main.css"
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -96,7 +94,7 @@ function App(props) {
           </Route>
           <PrivateRoute path="/weight" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
-            <Weight/>
+            <WeightPage/>
           </PrivateRoute>
           <PrivateRoute path="/balance-sheet" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
@@ -110,8 +108,6 @@ function App(props) {
             <MyMeasureNavbar/>
             <Training/>
           </PrivateRoute>
-
-
           <PrivateRoute path="/" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
             <Dashboard/>

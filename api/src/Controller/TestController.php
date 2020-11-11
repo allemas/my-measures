@@ -16,7 +16,7 @@ class TestController extends AbstractController
 
   public function __invoke(): Response
   {
-    return new Response(json_encode([]), 200);
+    return new Response(json_encode(["sldkfjdlkfj"]), 200);
   }
 
 }

@@ -10,7 +10,6 @@ import {fetch} from '../api/weight';
 const logger = createLogger({
   diff: true,
 });
-const reduxthunk = require("redux-thunk").default;
 
 const stores = combineReducers({
   weight,
@@ -20,7 +19,7 @@ const stores = combineReducers({
 });
 
 const store = createStore(stores,
-  applyMiddleware(logger, reduxthunk),
+  applyMiddleware(logger),
 );
 
 

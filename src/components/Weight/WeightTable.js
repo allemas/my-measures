@@ -72,6 +72,9 @@ const WeightTable = (props) => {
       <DataTable
         title="Evolution du poids"
         columns={columns}
+        onChangePage={(page, totalRow) => {
+          props.dispatch({type: "WEIGHT_FOR_PAGE", current_page: page});
+        }}
         responsive={true}
         data={props.weight.map(item => {
           var mydate = new Date(item.date);
@@ -81,7 +84,6 @@ const WeightTable = (props) => {
           }
         })
         }
-        defaultSortField="date"
         pagination
       />
 

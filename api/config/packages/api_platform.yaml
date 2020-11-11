@@ -1,7 +1,7 @@
 api_platform:
     title: My Measures API
   # The version of the API.
-    version: '0.0.0'
+    version: '0.0.1'
 
   # Set this to false if you want Webby to disappear.
     show_webby: true
@@ -30,3 +30,14 @@ api_platform:
     # Mercure integration, remove if unwanted
     mercure:
         hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
+
+    formats:
+      jsonld:   ['application/ld+json']
+      jsonhal:  ['application/hal+json']
+      jsonapi:  ['application/vnd.api+json']
+      json:     ['application/json']
+      xml:      ['application/xml', 'text/xml']
+      yaml:     ['application/x-yaml']
+      csv:      ['text/csv']
+      html:     ['text/html']
+

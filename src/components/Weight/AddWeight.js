@@ -10,30 +10,35 @@ import MeasureSuccessToast from '../Toast/MeasureSuccessToast';
 const AddWeight = ({state, dispatch}) => {
   const [modalshow, setShow] = useState(false);
   const [showA, setShowToast] = useState(false);
+
   const user = useSelector(state => state.user);
 
   const submitForm = (e) => {
     e.preventDefault();
 
     const {weight, feeling} = e.target;
-    const w = weight.value.replace(",", ".");
+    const value = weight.value.replace(",", ".");
     const date = new Date();
 
     post({
-      value: parseInt(w),
+      value: parseInt(value),
       feeling: feeling.value,
       user: "/users/" + user.uid,
       "date": date.toISOString(),
     }).then(response => {
+
       dispatch({
         type: 'ADD_WEIGHT',
         data: {
-          value: parseInt(w),
+          value: parseInt(value),
           feeling: feeling.value,
           user: "/users/" + user.uid,
           "date": date.toISOString(),
         }
       });
+
+      dispatch({type: "WEIGHT_FOR_PAGE"});
+
       setShow(false);
       setShowToast(true);
 
@@ -45,7 +50,8 @@ const AddWeight = ({state, dispatch}) => {
 
   return (
     <div style={{marginTop: 25, marginBottom: 15, textAlign: 'right'}}>
-      <Fab color="primary" variant="extended" style={{boxShadow: "none", background: "#30343F"}} onClick={() => setShow(true)}>
+      <Fab color="primary" variant="extended" style={{boxShadow: "none", background: "#30343F"}}
+           onClick={() => setShow(true)}>
         <AddIcon/>
         Ajouter une mesure
       </Fab>
