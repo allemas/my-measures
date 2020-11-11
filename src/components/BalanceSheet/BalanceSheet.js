@@ -25,7 +25,6 @@ const BalanceSheet = (props) => {
     }).catch(console.log);
   }, [user]);
 
-
   /*
   * https://thoughtbot.com/blog/using-redux-with-react-hooks
   */

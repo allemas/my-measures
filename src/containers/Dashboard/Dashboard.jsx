@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Col, Container, Jumbotron, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
-import Summary from "../../components/BalanceSheet/Widget/Summary";
+import DataTableShort from "../../components/DataTableShort/DataTableShort";
 import {getLastBalanceSheet} from "../../api/balanceSheet";
 import WeightDashboard from "../Widget/WeightDashboard/WeightDashboard";
 import {fetchUserWeightShort} from "../../api/weight";
@@ -46,15 +46,15 @@ const Dashboard = (props) => {
             }
           </Col>
           <Col md={9}>
-            <Summary balances={balance}/>
+            {balance != false &&
+              <DataTableShort balances={balance}/>
+            }
           </Col>
         </Row>
         <Row>&nbsp;</Row>
         <Row>
           <Col>
-            {weight != false &&
-            <WeightChart measures={weight}/>
-            }
+            <WeightChart measures={weight || [{'value': 0}]}/>
           </Col>
         </Row>
       </Container>
