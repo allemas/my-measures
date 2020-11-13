@@ -2,7 +2,7 @@ import React from 'react';
 
 import Dashboard from "./containers/Dashboard/Dashboard";
 import WeightPage from "./containers/WeightPage/WeightPage";
-import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
+import BalanceSheetPage from "./containers/BalanceSheet/BalanceSheetPage";
 import Login from "./containers/Login/Login";
 import {connect} from 'react-redux'
 import {fetch} from './api/user';
@@ -15,8 +15,9 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Training from "./components/Training/Training";
-import TrainingDetail from "./components/Training/TrainingDetail";
+import Training from "./containers/Training/Training";
+import TrainingDetail from "./containers/Training/TrainingDetail";
+
 
 
 const axios = require('axios').default;
@@ -98,7 +99,7 @@ function App(props) {
           </PrivateRoute>
           <PrivateRoute path="/balance-sheet" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
-            <BalanceSheet/>
+            <BalanceSheetPage/>
           </PrivateRoute>
           <PrivateRoute path="/training/show/:id_training" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>

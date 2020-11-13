@@ -1,4 +1,4 @@
-export const BalanceSheetColumn = [
+export const BodyMeasuresTableColumns = [
   {
     name: 'Date',
     selector: 'date',

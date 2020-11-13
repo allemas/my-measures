@@ -1,35 +1,66 @@
 # My Measures
 ![My Measure logo](./img.png)
 
-My Measure is a sideproject rebase my fundamentals in Javascript / React / Redux (and other middleware).
+MyMeasure is a sideproject to rebase my fundamentals in React.
+It's not a project for production. it's just a Kata programmaing
 
-## Available Scripts
+## Stack
+- Front
+    - React with hooks
+    - React router
+    - Redux
+    - brunch of UI lib
+    - ESLint
+    - etc.
+- Back
+    - API Platform / MySQL
 
-In the project directory, you can run:
+## Project structure
 
-### `npm start`
+### Api Folder
+`./src/api` for all API endpoints.
 
-Run API Platform and  mysql on docker
-Open [https://localhost:8000](https://localhost:8000) to view API Platform configuration.
+### Components Folder
+`./src/components` for all UI components.
+In this project component have not states or logic.
 
-### `npm start-front`
+### Containers Folder
+`./src/containers` for all complex graphic modules and components.
+it's here where you'ill find business logic, state management etc.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Store Folder
+`./src/store` for all redux stores/reducers.
+_should be refactore_
 
 
+# How it run ?
 
-# What I use ?
-- React JS
-- Redux / Redux-thunk / Redux-Saga (deprecated)
-- API Platform
+To run this project use [ttab](https://www.npmjs.com/package/ttab) package scripts.
 
-# Platform
-- MySql & adminer sur Docker
-- API Platform on Symfony server
+`npm run start` will start backend, apiplatform (by Symfony serve) and Docker for database
 
-# Resources
-- https://engineering.haus.com/connecting-redux-to-your-api-eac51ad9ff89
-- http://www.passportjs.org/docs/
-- https://medium.com/keycloak/secure-react-app-with-keycloak-4a65614f7be2
-- https://scalac.io/user-authentication-keycloak-1/
+`npm run start-front` will start the react application.
+
+`npm run` will run tests
+
+
+## TODO / Roadmap
+
+### Todo
+- Increase testability and separation of concerns
+- Use prop-types everywhere
+- Review useHook strategy and refocus dependency array
+- Verify JWT
+- Exit redux to use useReducer hook
+- Redesign training screen
+- Improve Error handling
+- CI/CD automation
+
+### Done
+- Bootstrap React application with PHP backend
+- Push and get datas
+- Authentification by JWT
+- Refactoring from Class to Hook
+- Refactoring and cleaning UIComponent and UIContainers
+- Create few tests
+- Remove Actions consts dependency

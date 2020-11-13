@@ -1,7 +1,8 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
 
-const WeightChart = (props) => {
+const ChartLine = (props) => {
+
   const data = {
     labels: props.measures.map(item => {
       var mydate = new Date(item.date);
@@ -65,4 +66,4 @@ const WeightChart = (props) => {
 };
 
 
-export default WeightChart;
+export default ChartLine;

@@ -1,19 +1,19 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import {Row, Col, Container, Modal, Form, Button} from 'react-bootstrap';
 import {pushbalance, getBalance} from '../../api/weight';
-import DataTable from "react-data-table-component";
-import {BalanceSheetColumn} from "./BalanceSheetColumns";
+
 import balanceSheetReducer, {initialState} from "../../store/balanceSheet";
 import {useSelector} from 'react-redux'
 import {Fab} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import bodyparts from "../../api/bodyparts";
+import BodyMeasuresTable from "../../components/Tables/BodyMeasuresTable/BodyMeasuresTable";
+import AddBalanceSheetModal from "./AddBalanceSheetModal";
 
 
-const BalanceSheet = (props) => {
-  const [modalshow, setShow] = useState(false);
+const BalanceSheetPage = (props) => {
   const user = useSelector(state => state.user);
   const [state, dispatch] = useReducer(balanceSheetReducer, [], initialState);
+  const [modalshow, setShow] = useState(false);
 
   useEffect(() => {
     getBalance({user_uid: user.uid}).then(response => {
@@ -78,65 +78,17 @@ const BalanceSheet = (props) => {
         </Row>
         <Row>
           <Col>
-            <DataTable
-              title="Evolution"
-              columns={BalanceSheetColumn}
-              responsive={true}
-              data={state.map(item => {
-                var mydate = new Date(item.date);
-                console.log(mydate);
-
-                return {
-                  ...item,
-                  'date': mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
-                }
-              })
-              }
-              pagination={true}
-            />
+            <BodyMeasuresTable bodydata={state}/>
           </Col>
         </Row>
       </Container>
       <div>
-        <Modal
-          size="xl"
-          show={modalshow}
-          onHide={() => setShow(false)}
-          dialogClassName="modal-90w">
-          <Modal.Header closeButton>
-            <Modal.Title id="example-custom-modal-styling-title">
-              Nouvelle mesure de poids
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Container>
-              <Row>
-                <Col>&nbsp;</Col>
-                <Col>
-                  <Form onSubmit={onSubmit}>
-                    {
-                      bodyparts.map((item) => {
-                        return (<Form.Group controlId="">
-                            <Form.Control type="text" placeholder={item.label} name={item.selector}/>
-                          </Form.Group>
-                        );
-                      })
-                    }
-
-                    <Button variant="primary" type="submit">
-                      Enregistrer
-                    </Button>
-                  </Form>
-                </Col>
-              </Row>
-            </Container>
-          </Modal.Body>
-        </Modal>
+        <AddBalanceSheetModal onSubmit={onSubmit} setShow={setShow} modalShow={modalshow}/>
       </div>
     </>
   )
     ;
 }
 
-export default BalanceSheet;
+export default BalanceSheetPage;
 

@@ -2,11 +2,12 @@ import React, {useEffect, useReducer, useState} from "react";
 import {Row, Col, Container, Alert} from 'react-bootstrap';
 import {useSelector} from 'react-redux'
 import LoaderMyMeasure from "../../components/Loader/Loader";
-import WeightTable from "../../components/Weight/WeightTable";
-import WeightChart from "../../components/Weight/WeightChart";
-import AddWeight from "../../components/Weight/AddWeight";
+import WeightTable from "../../containers/Weight/WeightTable";
+import AddWeight from "../../containers/Weight/AddWeight";
 import weightReducer from "../../store/weight";
 import {fetchUserWeight} from "../../api/weight";
+import ChartLine from "../../components/Chart/ChartLine";
+
 
 const initialState = () => {
   return {
@@ -33,7 +34,7 @@ const WeightPage = (props) => {
       <LoaderMyMeasure isVisible={state.currentsItems.length === 0}/>
       {state.currentsItems.length > 0 &&
       <>
-        <WeightChart measures={state.currentsItems}/>
+        <ChartLine measures={state.currentsItems}/>
         <AddWeight state={state.currentsItems} dispatch={dispatch}/>
         <WeightTable weight={state.items} dispatch={dispatch}/>
       </>

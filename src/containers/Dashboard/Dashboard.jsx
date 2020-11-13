@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Col, Container, Jumbotron, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
-import DataTableShort from "../../components/DataTableShort/DataTableShort";
+import OneLineTable from "../../components/Tables/OneLineTable/OneLineTable";
 import {getLastBalanceSheet} from "../../api/balanceSheet";
-import WeightDashboard from "../Widget/WeightDashboard/WeightDashboard";
 import {fetchUserWeightShort} from "../../api/weight";
-import WeightChart from "../../components/Weight/WeightChart";
+import ChartLine from "../../components/Chart/ChartLine";
+import FlatCard from "../../components/FlatCard/FlatCard";
 
 const Dashboard = (props) => {
   const user = useSelector(state => state.user);
@@ -16,12 +16,15 @@ const Dashboard = (props) => {
   useEffect(() => {
     getLastBalanceSheet(user.uid).then(response => {
       setBalance(response.data);
+      console.log(JSON.stringify(response.data));
+
     }).catch(console.log);
   }, [user]);
 
   useEffect(() => {
     fetchUserWeightShort(user.uid).then(response => {
       setCurrentWeight(response.data[0].value);
+
       setWeight(response.data.reverse());
     }).catch(console.log);
   }, [user]);
@@ -42,19 +45,19 @@ const Dashboard = (props) => {
         <Row>
           <Col md={3}>
             {currentWeight != false &&
-            <WeightDashboard weight={currentWeight}/>
+            <FlatCard weight={currentWeight}/>
             }
           </Col>
           <Col md={9}>
             {balance != false &&
-              <DataTableShort balances={balance}/>
+              <OneLineTable balances={balance}/>
             }
           </Col>
         </Row>
         <Row>&nbsp;</Row>
         <Row>
           <Col>
-            <WeightChart measures={weight || [{'value': 0}]}/>
+            <ChartLine measures={weight || [{'value': 0}]}/>
           </Col>
         </Row>
       </Container>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Metric = (props) => {
+const FlatCard = (props) => {
 
   var styles = {
     'borderRadius': '.25rem',
@@ -31,4 +31,4 @@ const Metric = (props) => {
 
 }
 
-export default Metric;
+export default FlatCard;

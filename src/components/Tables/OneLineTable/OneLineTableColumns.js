@@ -1,4 +1,4 @@
-export const DataTableShortColumns = [
+export const OneLineTableColumns = [
   {
     name: 'Pectoraux',
     selector: 'chest',
