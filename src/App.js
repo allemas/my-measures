@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Dashboard from "./containers/Dashboard/Dashboard";
-import WeightPage from "./containers/WeightPage/WeightPage";
+import WeightPage from "./containers/Weight/WeightPage";
 import BalanceSheetPage from "./containers/BalanceSheet/BalanceSheetPage";
 import Login from "./containers/Login/Login";
 import {connect} from 'react-redux'

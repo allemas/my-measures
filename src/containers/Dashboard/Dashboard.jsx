@@ -34,7 +34,7 @@ const Dashboard = (props) => {
     <div>
       <Jumbotron fluid>
         <Container>
-          <h1>Bienvenu {user.email} ! </h1>
+          <h1>Bienvenue {user.email} ! </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus feugiat, vehicula tellus
             vitae, commodo ligula. Nulla eu efficitur dolor. Praesent quis tellus at nunc pulvinar tincidunt.
