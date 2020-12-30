@@ -18,6 +18,9 @@ const TrainingList = (props) => {
 
   useEffect(() => {
     fetchTraining(user.uid).then(response => {
+      console.log(response);
+
+
       addTraining(response.data);
       dispatch({type: "TRAINING_FOR_PAGE"});
     }).catch(console.error);
@@ -53,44 +56,67 @@ const TrainingList = (props) => {
   const sumWeight = (items) => {
     var val = 0;
     items.forEach(item => {
-      val += parseInt(item.weight);
+      val += parseInt(item.weight) * parseInt(item.reps);
     });
     return val;
   }
 
 
+  var t = listTraining.currentsItems.map(item => sumWeight(item.bodyPart));
   const data = {
-    labels: listTraining.currentsItems.map(item => {
-      var mydate = new Date(item.date);
-      return mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
-    }),
-
     datasets: [
       {
-        label: '',
         backgroundColor: 'rgba(255,99,132,0.2)',
         borderColor: 'rgba(255,99,132,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,99,132,0.4)',
         hoverBorderColor: 'rgba(255,99,132,1)',
-        data: listTraining.currentsItems.map(item => sumWeight(item.bodyPart))
+        data: [2500, 2400]
       }
     ]
   };
+  const data2 = {
+    labels: listTraining.currentsItems.map(item => {
+      var mydate = new Date(item.date);
+      return mydate.toLocaleDateString('fr-FR') + ' ' + mydate.toLocaleTimeString('fr-FR')
+    }).reverse(),
 
+    datasets: [
+      {
+        label: 'Tonnage',
+        data: t.reverse(),
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        borderColor: 'rgba(255,99,132,1)',
+
+        borderWidth: 1,
+      },
+    ],
+  }
+  const options = {
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  }
 
   return (<>
     <Container fluid>
 
       <span>&nbsp;</span>
-      <Bar
-        data={data}
-        width={100}
-        height={50}
-        options={{
-          maintainAspectRatio: false
-        }}
-      />
+      <div style={{height: "300px"}}>
+        <Bar
+          data={data2}
+          width={10}
+          height={5}
+          options={options}
+        />
+      </div>
 
       <DataTable
         title="Mes entrainements"

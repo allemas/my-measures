@@ -10,7 +10,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 
-use App\Controller\TestController;
+use App\Controller\LeaderboardController;
+
+
+/**
+ * itemOperations={
+ *     "get",
+ *     "get_leaderboard",
+ * }
+ */
 
 /**
  * @ApiResource()

@@ -34,6 +34,8 @@ const ChartLine = (props) => {
   };
 
   const options = {
+    maintainAspectRatio: false,
+
     title: {
       display: true,
       text: "Mon poids"

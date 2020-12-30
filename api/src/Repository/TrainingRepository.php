@@ -14,37 +14,50 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrainingRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Training::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Training::class);
+  }
 
-    // /**
-    //  * @return Training[] Returns an array of Training objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Training
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+  public function getTrainingFromUserUid($uid)
+  {
+    return $this->createQueryBuilder('t')
+      ->andWhere('t.user = :val')
+      ->setParameter('val', $uid)
+//      ->orderBy('t.id', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+
+  // /**
+  //  * @return Training[] Returns an array of Training objects
+  //  */
+  /*
+  public function findByExampleField($value)
+  {
+
+      return $this->createQueryBuilder('t')
+          ->andWhere('t.exampleField = :val')
+          ->setParameter('val', $value)
+          ->orderBy('t.id', 'ASC')
+          ->setMaxResults(10)
+          ->getQuery()
+          ->getResult()
+      ;
+  }
+  */
+
+  /*
+  public function findOneBySomeField($value): ?Training
+  {
+      return $this->createQueryBuilder('t')
+          ->andWhere('t.exampleField = :val')
+          ->setParameter('val', $value)
+          ->getQuery()
+          ->getOneOrNullResult()
+      ;
+  }
+  */
 }

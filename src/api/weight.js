@@ -30,7 +30,7 @@ export const deleteUserWeight = (id) => {
 
 
 export const fetchUserWeight = (filter) => {
-  return axios.get('https://localhost:8000/weights?users=' + filter.user_uid, {
+  return axios.get('https://localhost:8000/weights?user=' + filter.uid, {
       headers: {
         Accept: "application/json",
       }

@@ -18,23 +18,30 @@ const initialState = () => {
 }
 
 const WeightPage = (props) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector(state => state.user);
   const [state, dispatch] = useReducer(weightReducer, initialState());
+
 
   useEffect(() => {
     fetchUserWeight(user).then((response) => {
       dispatch({type: "LOAD_ASYNC", data: response.data});
       dispatch({type: "WEIGHT_FOR_PAGE"});
+      setIsLoaded(true);
     });
   }, [user]);
 
 
   return (
     <Container fluid>
+      {isLoaded === false &&
       <LoaderMyMeasure isVisible={state.currentsItems.length === 0}/>
-      {state.currentsItems.length > 0 &&
+      }
+      {isLoaded === true &&
       <>
-        <ChartLine measures={state.currentsItems}/>
+        <div style={{height: "400px"}}>
+          <ChartLine measures={state.currentsItems} />
+        </div>
         <AddWeight state={state.currentsItems} dispatch={dispatch}/>
         <WeightTable weight={state.items} dispatch={dispatch}/>
       </>

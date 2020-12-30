@@ -36,6 +36,9 @@ class Login extends React.Component {
       "password": event.target.password.value
     })
       .then(function (response) {
+        console.log(response);
+
+
         that.setState({...that.state, isLoading: false});
 
         if (response.status === 200) {

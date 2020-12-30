@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 import Training from "./containers/Training/Training";
 import TrainingDetail from "./containers/Training/TrainingDetail";
-
+import Me from "./containers/Me/Me";
 
 
 const axios = require('axios').default;
@@ -58,7 +58,7 @@ const MyMeasureNavbar = () => {
       <Nav.Link href="/training">Mes entrainements</Nav.Link>
     </Navbar.Collapse>
     <Navbar.Collapse className="justify-content-end">
-      <Nav.Link href="/balance" className="my-measures-nav-link">{user}</Nav.Link>
+      <Nav.Link href="/me" className="my-measures-nav-link">{user}</Nav.Link>
     </Navbar.Collapse>
 
   </Navbar>);
@@ -109,10 +109,17 @@ function App(props) {
             <MyMeasureNavbar/>
             <Training/>
           </PrivateRoute>
+          <PrivateRoute path="/me" isLoggedIn={auth_checker}>
+            <MyMeasureNavbar/>
+            <Me/>
+          </PrivateRoute>
+
+
           <PrivateRoute path="/" isLoggedIn={auth_checker}>
             <MyMeasureNavbar/>
             <Dashboard/>
           </PrivateRoute>
+
 
         </Switch>
       </div>

@@ -39,7 +39,8 @@
     "tab:start:api": "PATH=/usr/local/Cellar/php/7.4.9/bin/:$PATH ./node_modules/ttab/bin/ttab -t api -d /var/www/my-measures/api symfony serve",
     "start": "./node_modules/npm-run-all/bin/npm-run-all/index.js tab:start:*",
     "start-front": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

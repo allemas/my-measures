@@ -61,7 +61,8 @@ const AddTraining = () => {
       "set": 20,
       exercices: result
     }).then(response => {
-      addTraining([response.data]);
+
+      addTraining(response.data);
       setShow(false);
       console.log(response);
     }).catch(err => {

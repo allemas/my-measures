@@ -3,10 +3,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Training;
-use App\Repository\TrainingRepository;
+use App\Swagger\SwaggerDecorator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
@@ -14,9 +14,15 @@ class TestController extends AbstractController
   {
   }
 
-  public function __invoke(): Response
+  /**
+   * @Route("/stat")
+   */
+  public function sdfsdfsdfsdf(): Response
   {
-    return new Response(json_encode(["sldkfjdlkfj"]), 200);
+    return $this->json([
+      'books_count' => 1000,
+      'topbooks_count' => 100,
+    ]);
   }
 
 }

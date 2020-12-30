@@ -12,8 +12,7 @@ const trainingReducer = (state = initialState(), action) => {
       return {
         'items': [
           ...state.items,
-          ...action.listTraining,
-
+          action.listTraining,
         ],
         'currentsItems': []
       };

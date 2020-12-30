@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Container, Jumbotron, Row} from "react-bootstrap";
+import {Col, Container, Jumbotron, Row, ListGroup} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import OneLineTable from "../../components/Tables/OneLineTable/OneLineTable";
 import {getLastBalanceSheet} from "../../api/balanceSheet";
@@ -7,18 +7,27 @@ import {fetchUserWeightShort} from "../../api/weight";
 import ChartLine from "../../components/Chart/ChartLine";
 import FlatCard from "../../components/FlatCard/FlatCard";
 
+import {getMilestonesForuser} from "../../api/milestones";
+
 const Dashboard = (props) => {
   const user = useSelector(state => state.user);
+  const [milestones, setMilestones] = useState(false);
   const [balance, setBalance] = useState(false);
   const [weight, setWeight] = useState(false);
   const [currentWeight, setCurrentWeight] = useState(false);
 
+
   useEffect(() => {
     getLastBalanceSheet(user.uid).then(response => {
       setBalance(response.data);
-      console.log(JSON.stringify(response.data));
 
     }).catch(console.log);
+
+    getMilestonesForuser(user.uid).then(response => {
+      setMilestones(response.data);
+    });
+
+
   }, [user]);
 
   useEffect(() => {
@@ -50,16 +59,32 @@ const Dashboard = (props) => {
           </Col>
           <Col md={9}>
             {balance != false &&
-              <OneLineTable balances={balance}/>
+            <OneLineTable balances={balance}/>
             }
           </Col>
         </Row>
         <Row>&nbsp;</Row>
+        {milestones != false &&
         <Row>
           <Col>
-            <ChartLine measures={weight || [{'value': 0}]}/>
+            <div>
+              <h3>Mes milestones : </h3>
+              <ListGroup>
+                {milestones.map((item, index) => <ListGroup.Item key={index}>{item.label}</ListGroup.Item>)}
+              </ListGroup>
+            </div>
           </Col>
         </Row>
+        }
+        <Row>&nbsp;</Row>
+        <Row>
+          <Col>
+            <div style={{height: "300px", marginTop: '50px'}}>
+              <ChartLine measures={weight || [{'value': 0}]}/>
+            </div>
+          </Col>
+        </Row>
+
       </Container>
     </div>
   );
